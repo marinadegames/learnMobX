@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import counter from './store/counter'
+import {observer} from "mobx-react-lite";
 
-function App() {
+// observer - функция, которая отслеживает перерисовку компоненты
+
+export const App = observer(()  => {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello!</h1>
+      <h2>Count: {counter.count}</h2>
+
+      <button onClick={() => counter.increment()}>+</button>
+      <button onClick={() => counter.decrement()}>-</button>
     </div>
   );
-}
+})
 
 export default App;
