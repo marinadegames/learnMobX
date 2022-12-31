@@ -1,50 +1,153 @@
 import {makeAutoObservable} from "mobx";
-import {v1} from "uuid";
 
-class Todo {
+class Todos {
 
-    public todos: Array<TypeTodo> = [
+    public todos: Array<TodosType> = [
         {
-            id: '1w',
-            title: "What's learn",
-            isDone: false
+            "userId": 1,
+            "id": 1,
+            "title": "delectus aut autem",
+            "completed": false
         },
         {
-            id: '1ww2e',
-            title: "What's drink",
-            isDone: true
+            "userId": 1,
+            "id": 2,
+            "title": "quis ut nam facilis et officia qui",
+            "completed": false
         },
-
+        {
+            "userId": 1,
+            "id": 3,
+            "title": "fugiat veniam minus",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 4,
+            "title": "et porro tempora",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 5,
+            "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 6,
+            "title": "qui ullam ratione quibusdam voluptatem quia omnis",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 7,
+            "title": "illo expedita consequatur quia in",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 8,
+            "title": "quo adipisci enim quam ut ab",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 9,
+            "title": "molestiae perspiciatis ipsa",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 10,
+            "title": "illo est ratione doloremque quia maiores aut",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 11,
+            "title": "vero rerum temporibus dolor",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 12,
+            "title": "ipsa repellendus fugit nisi",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 13,
+            "title": "et doloremque nulla",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 14,
+            "title": "repellendus sunt dolores architecto voluptatum",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 15,
+            "title": "ab voluptatum amet voluptas",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 16,
+            "title": "accusamus eos facilis sint et aut voluptatem",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 17,
+            "title": "quo laboriosam deleniti aut qui",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 18,
+            "title": "dolorum est consequatur ea mollitia in culpa",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 19,
+            "title": "molestiae ipsa aut voluptatibus pariatur dolor nihil",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 20,
+            "title": "ullam nobis libero sapiente ad optio sint",
+            "completed": true
+        }
     ]
 
     constructor() {
         makeAutoObservable(this)
     }
 
-    public addTodo () {
-        this.todos.push(
-            {
-            id: v1(),
-                title: 'new name',
-                isDone: false})
+    public fetchTodos() {
+        fetch('https://jsonplaceholder.typicode.com/users/1/todos')
+            .then((response) => response.json())
+            .then((json) => {
+                this.todos = json
+                console.log(json)
+            });
     }
 
-    public deleteTodo (id: string) {
-        this.todos = this.todos.filter(t => t.id !== id)
-    }
-
-    public completeTodo (id: string) {
-        this.todos = this.todos.map(t => t.id === id ? {...t, isDone: !t.isDone} : t)
+    public changeTodoStatus(id: number) {
+        this.todos[id -1].completed = !this.todos[id-1].completed
     }
 }
 
-export default new Todo()
+export default new Todos()
 
-
-
-
-type TypeTodo = {
-    id: string
-    title: string
-    isDone: boolean
+export type TodosType = {
+    userId: number
+    id:  number,
+    title: string,
+    completed: boolean,
 }
